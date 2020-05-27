@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+int lis(int *input, int n)
+{
+    int *output = new int[n];
+    int ans = 0;
+    output[0] = 1;
+    for(int i = 1;i<n;i++)
+    {
+        output[i] = 1;
+        for(int j = i-1;j>=0;j--)
+        {
+            if(input[j] > input[i])
+            continue;
+            else
+            {
+                int possible_ans = output[j] +1;
+                if(possible_ans > output[i])
+                output[i] = possible_ans;
+            }
+        }
+        
+    }
+    for(int i = 0;i<n;i++)
+        if(output[i] > ans)
+        ans = output[i];
+    delete[] output;
+    return ans;
+    
+}
+int main() {
+	//code
+	int t;
+	cin>>t;
+	while(t-- > 0)
+	{
+	    int n;
+	    cin>>n;
+	    int *arr = new int[n];
+	    for(int i = 0;i<n;i++)
+	    cin>>arr[i];
+	    cout<<lis(arr,n)<<endl;
+	}
+	return 0;
+}
